@@ -7,6 +7,7 @@ import './styles.css';
 
 interface PagerHeaderProps {
     title: string;
+    description?: string;
 }
 
 
@@ -23,6 +24,9 @@ const PageHeader: React.FC<PagerHeaderProps> = (props)=> {
 
         <div className="header-content">
             <strong>{props.title}</strong>
+            {/* if internal se verifica se tem valor,ai ele traz algo*/}
+            {props.description && <p>{props.description}</p>}
+
 
             {props.children}
         </div>
