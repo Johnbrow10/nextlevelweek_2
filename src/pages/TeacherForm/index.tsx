@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader';
 
 import './styles.css';
 import Input from '../../components/input';
+import Textarea from '../../components/Textarea';
 
 import warningicon from '../../assets/images/icons/warning.svg';
 
@@ -20,6 +21,7 @@ function TeacherForm() {
                 <Input name="name" label="Nome Completo"/>
                 <Input name="avatar" label="Avatar"/>
                 <Input name="whatsapp" label="Whatsapp"/>
+                <Textarea name="bio" label="Biografia"/>
                
             </fieldset>
 
