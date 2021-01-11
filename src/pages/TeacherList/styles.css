@@ -4,7 +4,6 @@
 }
 
 
-
 #search-teachers {
     margin-top: 3.2rem;
 }
@@ -111,6 +110,9 @@
     }
 
     #search-teachers .input-block + .input-block {
+        margin-top:0rem;
+    }
+    #search-teachers .select-block + .select-block {
         margin-top:0rem;
     }
 
