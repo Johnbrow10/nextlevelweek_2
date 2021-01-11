@@ -89,7 +89,7 @@ function TeacherForm() {
                                 <Input name="to" label="Até" type="time" />
                             </div>
                         )
-                    })};
+                    })}
                 </fieldset>
 
                 <footer>
