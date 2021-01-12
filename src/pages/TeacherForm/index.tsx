@@ -8,6 +8,7 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/select';
 
 import warningicon from '../../assets/images/icons/warning.svg';
+import api from '../../services/api';
 
 function TeacherForm() {
 
@@ -33,28 +34,32 @@ function TeacherForm() {
 
     function setScheduleItemValue(position: number, field: string, value: string) {
         // map vai comparar o array que estar no scheduleItems vazio. 
-        const newArray = scheduleItems.map((scheduleItem, index) => {
-            // a comparacao  e se a posicao do array ScheduleItem e a mesma que a posicao do newArray
+        const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
+            // a comparacao  e se a posicao do array ScheduleItems e a mesma que a posicao do updateScheduleItems.
             if (index === position) {
-                // entao ele retorna os dados do array e modifica apenas o field mantendo os dados do array Original
+                // entao ele retorna os dados do array scheduleItem e modifica apenas o field e assim mantendo os dados do array Original
                 return { ...scheduleItem, [field]: value }
             }
-
             return scheduleItem;
-
         });
-        console.log(newArray);
+        setScheduleItems(updateScheduleItems);
     }
 
     function handleCreateClass(e: FormEvent) {
         e.preventDefault();
-        console.log({
+
+        api.post('classes', {
             name,
             avatar,
             whatsapp,
             bio,
             subject,
-            cost
+            cost: Number(cost),
+            schedule: scheduleItems
+        }).then(() => {
+            alert('Cadastro realizado com sucesso!')
+        }).catch(() => {
+            alert('Erro no Cadastro')
         })
 
     }
@@ -108,6 +113,7 @@ function TeacherForm() {
                                 { value: 'Artes', label: 'Artes' },
                                 { value: 'Biologia', label: 'biologia' },
                                 { value: 'Ciências', label: 'Ciências' },
+                                { value: 'História', label: 'História' },
                                 { value: 'Educação Física', label: 'Educação Física' },
                                 { value: 'Física', label: 'Física' },
                                 { value: 'Geografia', label: 'Geografia' },
@@ -139,6 +145,7 @@ function TeacherForm() {
                                     <Select
                                         name="week_day"
                                         label="Dia da semana"
+                                        value={scheduleItem.week_day}
                                         onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                                         options={[
                                             { value: '0', label: 'Domingo' },
@@ -151,8 +158,20 @@ function TeacherForm() {
                                         ]}
 
                                     />
-                                    <Input name="from" label="Das" type="time" />
-                                    <Input name="to" label="Até" type="time" />
+                                    <Input
+                                        name="from"
+                                        label="Das"
+                                        type="time"
+                                        value={scheduleItem.from}
+                                        onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
+                                    />
+                                    <Input
+                                        name="to"
+                                        label="Até"
+                                        type="time"
+                                        value={scheduleItem.to}
+                                        onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
+                                    />
                                 </div>
                             )
                         })}
