@@ -31,6 +31,21 @@ function TeacherForm() {
         ]);
     };
 
+    function setScheduleItemValue(position: number, field: string, value: string) {
+        // map vai comparar o array que estar no scheduleItems vazio. 
+        const newArray = scheduleItems.map((scheduleItem, index) => {
+            // a comparacao  e se a posicao do array ScheduleItem e a mesma que a posicao do newArray
+            if (index === position) {
+                // entao ele retorna os dados do array e modifica apenas o field mantendo os dados do array Original
+                return { ...scheduleItem, [field]: value }
+            }
+
+            return scheduleItem;
+
+        });
+        console.log(newArray);
+    }
+
     function handleCreateClass(e: FormEvent) {
         e.preventDefault();
         console.log({
@@ -118,12 +133,13 @@ function TeacherForm() {
                                 + Novo horário
                         </button>
                         </legend>
-                        {scheduleItems.map(scheduleItem => {
+                        {scheduleItems.map((scheduleItem, index) => {
                             return (
                                 <div key={scheduleItem.week_day} className="schedule-item">
                                     <Select
                                         name="week_day"
                                         label="Dia da semana"
+                                        onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                                         options={[
                                             { value: '0', label: 'Domingo' },
                                             { value: '1', label: 'Segunda-feira' },
