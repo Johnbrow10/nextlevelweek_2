@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import PageHeader from '../../components/PageHeader';
 
@@ -11,6 +12,7 @@ import warningicon from '../../assets/images/icons/warning.svg';
 import api from '../../services/api';
 
 function TeacherForm() {
+    const history = useHistory();
 
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState('');
@@ -57,7 +59,8 @@ function TeacherForm() {
             cost: Number(cost),
             schedule: scheduleItems
         }).then(() => {
-            alert('Cadastro realizado com sucesso!')
+
+            history.push('/');
         }).catch(() => {
             alert('Erro no Cadastro')
         })
